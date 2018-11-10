@@ -1,0 +1,15 @@
+<launch>
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <param name="base_global_planner" value="navfn/NavfnROS"/>
+    <!-- <param name="base_global_planner" value="carrot_planner/CarrotPlanner" /> -->
+    <!-- <param name="base_global_planner" value="global_planner_test/GlobalPlannerTest"/> -->
+    <!-- <param name="base_global_planner" value="global_path_loader/GlobalPathLoader"/> -->
+    <rosparam file="$(find navigation_test)/launch/includes/move_base/move_base.yaml" command="load" />
+    <rosparam file="$(find navigation_test)/launch/includes/move_base/costmap_common.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find navigation_test)/launch/includes/move_base/costmap_common.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find navigation_test)/launch/includes/move_base/costmap_local.yaml" command="load" />
+    <rosparam file="$(find navigation_test)/launch/includes/move_base/costmap_global.yaml" command="load" />
+    <rosparam file="$(find navigation_test)/launch/includes/move_base/planner_local.yaml" command="load" />
+    <rosparam file="$(find navigation_test)/launch/includes/move_base/planner_global.yaml" command="load" />
+  </node>  
+</launch>

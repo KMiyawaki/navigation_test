@@ -1,0 +1,28 @@
+<launch>
+  <arg name="robot_model" default="$(find navigation_test)/urdf/hirakata_robot.xacro"/>
+  <arg name="use_rviz" default="true" />
+  <arg name="rviz_conf" default="$(find navigation_test)/config/rviz/navigation.rviz" />
+  <arg name="rviz_required" default="true" />
+  <arg name="simulation_world" default="$(find navigation_test)/launch/simulation/worlds/2gou4f.world"/>
+  <arg name="map_name" default="$(find navigation_test)/maps/2gou4f.yaml" />
+  <arg name="use_state_publisher" default="true" />
+
+  <group if="$(arg use_state_publisher)">
+    <include file="$(find navigation_test)/launch/includes/state_publisher.launch">
+      <arg name="model" value="$(arg robot_model)" />
+    </include>
+  </group>
+
+  <include file="$(find navigation_test)/launch/simulation/stage.launch">
+    <arg name="world" value="$(arg simulation_world)"/>
+  </include>
+  <include file="$(find navigation_test)/launch/includes/teleop_joy.launch"/>
+  
+  <group if="$(arg use_rviz)">
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_conf)" required="$(arg rviz_required)" />
+  </group>
+  
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_name)" respawn="false" />
+
+  <include file="$(find navigation_test)/launch/includes/amcl.xml"/>  
+</launch>
