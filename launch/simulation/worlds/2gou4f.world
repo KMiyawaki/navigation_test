@@ -28,7 +28,7 @@ robot
 )
 
 wall( 
-  pose [1.0 0.3 0 0]
+  pose [3.0 0.3 0 0]
   color "blue"
 )
 
